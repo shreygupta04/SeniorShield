@@ -1,4 +1,3 @@
-        
 import cv2
 from picamera.array import PiRGBArray
 from picamera import PiCamera
@@ -38,7 +37,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
 		if conf <= 70:
 			# GPIO.output(relay_pin, 1)
-            print("OPEN THE DOOR")
+            print("Open the door, this person is there: " + name)
 			cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 			cv2.putText(frame, name + str(conf), (x, y), font, 2, (0, 0 ,255), 2,cv2.LINE_AA)
 
