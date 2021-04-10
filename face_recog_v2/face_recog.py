@@ -7,11 +7,6 @@ import pickle
 import RPi.GPIO as GPIO
 from time import sleep
 
-relay_pin = [26]
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(relay_pin, GPIO.OUT)
-GPIO.output(relay_pin, 0)
-
 with open('labels', 'rb') as f:
 	dicti = pickle.load(f)
 	f.close()
@@ -42,7 +37,8 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 				print(name)
 
 		if conf <= 70:
-			GPIO.output(relay_pin, 1)
+			# GPIO.output(relay_pin, 1)
+            print("OPEN THE DOOR")
 			cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 			cv2.putText(frame, name + str(conf), (x, y), font, 2, (0, 0 ,255), 2,cv2.LINE_AA)
 
