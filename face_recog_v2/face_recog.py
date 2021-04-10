@@ -42,7 +42,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 			cv2.putText(frame, name + str(conf), (x, y), font, 2, (0, 0 ,255), 2,cv2.LINE_AA)
 
 		else:
-			GPIO.output(relay_pin, 0)
+			print("no one recognized")
 
 	cv2.imshow('frame', frame)
 	key = cv2.waitKey(1)
