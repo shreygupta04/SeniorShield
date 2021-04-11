@@ -5,6 +5,21 @@ import numpy as np
 import pickle
 import RPi.GPIO as GPIO
 from time import sleep
+import pyrebase
+
+config = {
+    "apiKey": "AIzaSyDP0mHM4XP-us0a3sHd5QojTSObnwXJDQo",
+    "authDomain": "seniorshield-84d95.firebaseapp.com",
+    "databaseURL": "https://seniorshield-84d95-default-rtdb.firebaseio.com",
+    "projectId": "seniorshield-84d95",
+    "storageBucket": "seniorshield-84d95.appspot.com",
+    "messagingSenderId": "475934775503",
+    "appId": "1:475934775503:web:077a1a5614ed4c2c63bfba"
+}
+
+firebase = pyrebase.initialize_app(config)
+db = firebase.database()
+
 
 with open('labels', 'rb') as f:
 	dicti = pickle.load(f)
@@ -41,6 +56,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         if conf <= 70:
             # GPIO.output(relay_pin, 1)
             # print("Open the door, this person is there: " + name)
+            db.child("name").update({'name': name})
             cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
             cv2.putText(frame, name + str(conf), (x, y), font, 2, (0, 0 ,255), 2,cv2.LINE_AA)
 
@@ -53,5 +69,5 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     if key == 27 or tick==45:
         break
 
-print("No-one recognized")
+db.child("name").update({'name': ""})
 cv2.destroyAllWindows()
