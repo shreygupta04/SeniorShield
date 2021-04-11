@@ -1,7 +1,5 @@
 import pyrebase
 
-app = Flask(__name__)
-
 config = {
     "apiKey": "AIzaSyDP0mHM4XP-us0a3sHd5QojTSObnwXJDQo",
     "authDomain": "seniorshield-84d95.firebaseapp.com",
@@ -15,4 +13,4 @@ config = {
 firebase = pyrebase.initialize_app(config)
 db = firebase.database()
 
-db.child("name").update({'name': })
+db.update({"name": "atin2"})
